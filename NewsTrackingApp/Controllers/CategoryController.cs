@@ -18,9 +18,9 @@ namespace NewsTrackingApp.Controllers
     {
         private NTDBEntities dbcontext = new NTDBEntities();
 
-        public ActionResult Index()
+        public HttpNotFoundResult Index()
         {
-            return View();
+            return new HttpNotFoundResult();
         }
 
         public ActionResult Category_Read([DataSourceRequest] DataSourceRequest request)
