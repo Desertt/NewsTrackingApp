@@ -18,9 +18,9 @@ namespace NewsTrackingApp.Controllers
     {
         private NTDBEntities dbcontext = new NTDBEntities();
 
-        public HttpNotFoundResult Index()
+        public ActionResult Index()
         {
-            return new HttpNotFoundResult();
+            return View();
         }
 
         public ActionResult Category_Read([DataSourceRequest] DataSourceRequest request)
@@ -43,7 +43,7 @@ namespace NewsTrackingApp.Controllers
                 dbcontext.Database.ExecuteSqlCommand("exec sp_InsertCategory @KategoriAdi",
                    new SqlParameter("@KategoriAdi", tbl_Kategori.KategoriAdi));
                 return RedirectToAction("Index");
-                
+
             }
 
             return View(tbl_Kategori);
@@ -95,7 +95,7 @@ namespace NewsTrackingApp.Controllers
         }
 
 
-        [HttpPost, ActionName("Delete")] 
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
