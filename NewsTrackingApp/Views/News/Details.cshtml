@@ -1,0 +1,42 @@
+﻿@model NewsTrackingApp.Models.Tbl_Haber
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Tbl_Haber</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.HaberBaslik)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HaberBaslik)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HaberIcerik)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HaberIcerik)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tbl_Kategori.KategoriAdi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tbl_Kategori.KategoriAdi)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

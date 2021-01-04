@@ -1,0 +1,80 @@
+﻿@*@model IEnumerable<NewsTrackingApp.Models.Tbl_Haber>*@
+
+
+@{
+    ViewBag.Title = "News Tracking";
+    <link rel="stylesheet" type="text/css" href="~/Content/css/style4.css" />
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+}
+
+<h2><img src="/favicon.ico" />News Tracking</h2>
+
+<p>
+    @*@Html.ActionLink("Create News", "Create")*@
+    <input type="button" class="btn btn-primary btn-lg active" style="float: left" value="Create News" onclick="location.href='@Url.Action("Create","News")'">
+    <input type="button" class="btn btn-primary btn-lg active" style="float: right" value="Category Management" onclick="location.href='@Url.Action("Index","Category")'">
+</p>
+
+<table class="table">
+    @*<tr>
+            <th>
+                @Html.DisplayNameFor(model => model.HaberBaslik)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HaberIcerik)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tbl_Kategori.KategoriAdi)
+            </th>
+            <th></th>
+            <a href="~/Views/News/Index.cshtml">~/Views/News/Index.cshtml</a>
+        </tr>*@
+
+    @*@foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HaberBaslik)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HaberIcerik)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tbl_Kategori.KategoriAdi)
+
+                </td>
+                <td>
+                    @Html.ActionLink("Update", "Edit", new { id = item.Id }, new { @class = "btn btn-success" })<br>
+                    <span>---------------</span>
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }*@
+
+</table>
+
+
+
+@(Html.Kendo().Grid<NewsTrackingApp.Models.HaberViewModel>()
+                .Name("grid")
+                .Columns(columns =>
+                {
+
+                    columns.Bound(p => p.HaberBaslik);
+                    columns.Bound(p => p.HaberIcerik);
+                    columns.Bound(p => p.KategoriAdi);
+                    columns.Bound(p => p.Id).ClientTemplate("<a href='/News/Edit/#=Id#' class='a_demo_four'>UPDATE</a>").Width(150).Title("");
+                    columns.Bound(p => p.Id).ClientTemplate("<a href='/News/Delete/#=Id#' class='btn btn-danger'>DELETE</a>").Width(150).Title("");
+                })
+            .Pageable()
+            .Sortable()
+            .Groupable()
+            .Scrollable()
+            .Filterable()
+            .HtmlAttributes(new { style = "height:550px;" })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .PageSize(20)
+                .Read(read => read.Action("News_Read", "News"))
+            )
+        )

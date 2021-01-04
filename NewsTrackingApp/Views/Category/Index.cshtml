@@ -1,0 +1,41 @@
+﻿@*@model IEnumerable<NewsTrackingApp.Models.Tbl_Kategori>*@
+
+@{
+    ViewBag.Title = "Index";
+    <link rel="stylesheet" type="text/css" href="~/Content/css/style4.css" />
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+
+}
+
+<h2><img src="/favicon.ico" />Category Management</h2>
+<p>
+    <input type="button" class="btn btn-primary btn-lg active" style="bottom: right" value="Create New Category" onclick="location.href='@Url.Action("Create","Category")'">
+</p>
+
+<table class="table">
+    
+
+    @(Html.Kendo().Grid<NewsTrackingApp.Models.CategoryViewModel>()
+                .Name("grid")
+                .Columns(columns =>
+                {
+
+                    columns.Bound(p => p.KategoriAdi);
+                    columns.Bound(p => p.Id).ClientTemplate("<a href='/Category/Edit/#=Id#' class='a_demo_four'>UPDATE</a>").Width(150).Title("");
+                    columns.Bound(p => p.Id).ClientTemplate("<a href='/Category/Delete/#=Id#' class='btn btn-danger'>DELETE</a>").Width(150).Title("");
+                })
+            .Pageable()
+            .Sortable()
+            .Groupable()
+            .Scrollable()
+            .Filterable()
+            .HtmlAttributes(new { style = "height:550px;" })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .PageSize(20)
+                .Read(read => read.Action("Category_Read", "Category"))
+            )
+        )
+
+
+</table>
